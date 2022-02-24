@@ -124,14 +124,14 @@ def dataPrep(remove=False):
     '''
     cit, context_dict, mag2arx_dict = readCitations(file)
     train, test = splitTrainTest(cit)
-    train_sent, train_vocab = vocabFilter(train)
-    test_sent, _ = vocabFilter(test)
 
-    print(f"Current number of articles in dataset: {len(train)}")
-
+    print(f"Current number of citation contexts in dataset: {len(train)}")
     if remove:
         train = removeSingles(train)
-        print(f"Number of articles in dataset after removing: {len(train)}")
+        print(f"Number of citation contexts in dataset after removing: {len(train)}")
+
+    train_sent, train_vocab = vocabFilter(train)
+    test_sent, _ = vocabFilter(test)
 
     X, wordvec, vec_vocab = bowVector(train_sent, train_vocab)
     y = train['cited_paper_mag_id']
@@ -145,8 +145,8 @@ def removeSingles(data):
         form the dataset.
     '''
     cited_counter = Counter(data['cited_paper_mag_id'])
-    single_keys = [key for key in cited_counter if cited_counter[key] <= 1]
-    print(f"There are {len(single_keys)} articles that are only cited once.")
+    single_keys = [key for key in cited_counter if cited_counter[key] <= 4]
+    print(f"There are {len(single_keys)} articles that are cited 4 times or less.")
     print("Removing...")
 
     for key in single_keys:
