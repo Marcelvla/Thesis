@@ -37,9 +37,9 @@ def printMetrics(clf_str, y_pred, y_test):
     ''' Show scores for the predicted values of a classifier
     '''
     # confusion matrix on the test data.
-    print(f'\nConfusion matrix of {clf_str} on the test data:')
+    print(f'\nConfusion matrix of {clf_str} on the CS specific data:')
     pred_col_index = list(set(y_pred))
-    print(pd.DataFrame(confusion_matrix(y_test, y_pred)), columns = pred_col_index, index = pred_col_index)
+    print(pd.DataFrame(confusion_matrix(y_test, y_pred), columns = pred_col_index, index = pred_col_index))
     pred_ct = Counter([y_pred[i]==y_test[i] for i in range(len(y_test))])
     acc = pred_ct[True] / len(y_test) * 100
     print(f"With an accuracy of {acc}%")

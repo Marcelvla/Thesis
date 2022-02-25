@@ -8,7 +8,8 @@ import random
 from sklearn.feature_extraction.text import CountVectorizer
 
 ## Global vars
-file = 'testdata/citation_context_sample.csv'
+test_file = 'testdata/citation_context_sample.csv'
+cs_file = 'testdata/cs_citcon.csv'
 punctuations = list(string.punctuation)
 keywords = ['CIT', 'MAINCIT', 'REF', 'FORMULA']
 filtr = punctuations + keywords
@@ -119,7 +120,7 @@ def bowVector(corpus, vocab):
 
     return X, wordvec, vec_vocab
 
-def dataPrep(remove=False):
+def dataPrep(file=cs_file, remove=False):
     ''' Create test and train set
     '''
     cit, context_dict, mag2arx_dict = readCitations(file)
